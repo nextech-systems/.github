@@ -155,6 +155,8 @@ Designed and managed multi-host ERPNext infrastructure incorporating Keepalived 
 
 - ---
 
+---
+
 ## Mobile Proof-of-Delivery Architecture
 
 The mobile logistics solution uses a controlled middleware architecture to connect Android devices with ERPNext.
