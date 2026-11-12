@@ -1,4 +1,5 @@
 # Nextech Systems
+
 ### ERPNext & Frappe Engineering | Enterprise Integrations | Infrastructure & Automation
 
 **Engineering practical business solutions through open-source technology.**
@@ -21,7 +22,7 @@ Our work focuses on solving real operational challenges, improving business visi
 - High-Availability Infrastructure & Disaster Recovery
 - Linux Systems Administration & Security Hardening
 
-- ---
+---
 
 ## Selected Engineering Projects
 
@@ -29,37 +30,44 @@ Our work focuses on solving real operational challenges, improving business visi
 
 **Industry:** Distribution | Logistics | Warehouse Management
 
-#### The Challenge
+**The Challenge**
+
 Paper-based delivery documentation created operational inefficiencies. Delivery notes could be misplaced, manual scanning consumed administrative time, and delivery confirmation was not consistently available to the back office.
 
-#### Architecture
+**Architecture**
+
 Developed a custom Android application integrated with ERPNext through a MySQL middleware layer and secured REST APIs.
 
 **Key Features**
+
 - Digital proof-of-delivery and signature capture.
 - OCR-assisted delivery note identification and matching.
 - QR-provisioned device authentication.
 - Automated ERPNext Delivery Trip updates.
 - Centralized middleware for mobile transaction processing.
 
-#### Business Impact
+**Business Impact**
+
 - Eliminated lost delivery notes, previously approximately 1 in every 200 deliveries.
 - Removed manual scanning and document-upload processes.
 - Improved driver accountability through digital signatures.
 - Reduced administrative headcount by one.
 - Improved delivery visibility and documentation availability.
 
-- ### 02. Jamaican Statutory Payroll & Tax Engine
+### 02. Jamaican Statutory Payroll & Tax Engine
 
 **Industry:** Human Resources | Accounting | Payroll
 
-#### The Challenge
+**The Challenge**
+
 Standard payroll configurations required additional localization to support Jamaican statutory calculations, reporting requirements, and financial presentation.
 
-#### Architecture
+**Architecture**
+
 Developed a customized ERPNext payroll and statutory reporting solution using custom DocTypes, server scripts, and print formats.
 
 **Key Features**
+
 - Progressive PAYE tax band calculations.
 - Free-pay threshold handling.
 - Annualization rules.
@@ -67,24 +75,28 @@ Developed a customized ERPNext payroll and statutory reporting solution using cu
 - TAJ statutory return generation: SO1, SO2 and P24.
 - Localized Balance Sheet and Profit & Loss formats.
 
-#### Business Impact
+**Business Impact**
+
 - Automated complex localized payroll calculations.
 - Reduced reliance on manual statutory adjustments.
 - Standardized payroll reporting outputs.
 - Improved consistency between payroll and financial reporting.
 - Simplified preparation of statutory return files.
 
-- ### 03. Multi-Location Biometric Attendance & Overtime Synchronization
+### 03. Multi-Location Biometric Attendance & Overtime Synchronization
 
 **Industry:** Human Resources | Workforce Management
 
-#### The Challenge
+**The Challenge**
+
 Attendance information collected across multiple locations needed to be consolidated into ERPNext. Manual attendance reconciliation and overtime processing created administrative work and inconsistent approval procedures.
 
-#### Architecture
+**Architecture**
+
 Developed a bidirectional API integration connecting Hikvision biometric attendance terminals with ERPNext.
 
 **Key Features**
+
 - Multi-location Hikvision terminal integration.
 - Automated attendance synchronization.
 - Lateness and attendance exception tracking.
@@ -93,24 +105,28 @@ Developed a bidirectional API integration connecting Hikvision biometric attenda
 - Reversion of unapproved overtime to scheduled shifts.
 - ERPNext Timesheet integration.
 
-#### Business Impact
+**Business Impact**
+
 - Centralized attendance information across multiple locations.
 - Reduced manual attendance reconciliation.
 - Introduced controlled overtime approval procedures.
 - Improved workforce reporting consistency.
 - Prevented unapproved overtime from automatically becoming payable working time.
 
-- ### 04. Shop-Floor Manufacturing & Warehouse Picking Kiosks
+### 04. Shop-Floor Manufacturing & Warehouse Picking Kiosks
 
 **Industry:** Manufacturing | Inventory | Production Management
 
-#### The Challenge
+**The Challenge**
+
 Production operators and warehouse personnel needed a more immediate way to record manufacturing activities and inventory movements. Traditional data-entry processes introduced delays between physical operations and ERPNext records.
 
-#### Architecture
+**Architecture**
+
 Developed real-time, bidirectional kiosk interfaces for machine operators and warehouse picking personnel.
 
 **Key Features**
+
 - Machine-operator production interfaces.
 - Job Card execution tracking.
 - Machine utilization monitoring.
@@ -119,24 +135,28 @@ Developed real-time, bidirectional kiosk interfaces for machine operators and wa
 - Validated stock transaction generation.
 - Real-time operational updates.
 
-#### Business Impact
+**Business Impact**
+
 - Reduced delays between physical operations and ERPNext updates.
 - Improved visibility into production execution.
 - Improved warehouse picking accuracy and traceability.
 - Automated validated inventory transactions.
 - Reduced reliance on manual data entry.
 
-- ### 05. High-Availability ERPNext Infrastructure & Disaster Recovery
+### 05. High-Availability ERPNext Infrastructure & Disaster Recovery
 
 **Industry:** Enterprise Infrastructure | Business Continuity
 
-#### The Challenge
+**The Challenge**
+
 Business-critical ERP systems require infrastructure that can withstand individual server failures and support reliable recovery. Single-server deployments introduce operational risks when hardware or services become unavailable.
 
-#### Architecture
+**Architecture**
+
 Designed and managed multi-host ERPNext infrastructure incorporating Keepalived for automated failover and TrueNAS for centralized backup and recovery.
 
 **Key Features**
+
 - Multi-host ERPNext deployment architecture.
 - Keepalived-based frontend failover.
 - Database failover architecture.
@@ -145,15 +165,14 @@ Designed and managed multi-host ERPNext infrastructure incorporating Keepalived 
 - Hourly backup snapshots.
 - Disaster recovery and restoration planning.
 
-#### Business Impact
+**Business Impact**
+
 - Reduced dependency on individual frontend servers.
 - Improved infrastructure resilience through automated failover.
 - Established centralized backup storage.
 - Introduced hourly snapshot-based recovery points.
 - Improved disaster recovery readiness.
 - Provided a scalable foundation for business-critical ERPNext deployments.
-
-- ---
 
 ---
 
@@ -180,6 +199,7 @@ flowchart TD
     F --> G
     A --> H
     H --> C
+```
 
 ---
 
@@ -215,6 +235,7 @@ flowchart TB
     DB2 --> TN
     TN --> SNAP
     SNAP --> DR
+```
 
 ---
 
