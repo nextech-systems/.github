@@ -21,6 +21,8 @@ Our work focuses on solving real operational challenges, improving business visi
 - Biometric Attendance & Workforce Management
 - High-Availability Infrastructure & Disaster Recovery
 - Linux Systems Administration & Security Hardening
+- Database Infrastructure & High Availability
+- Virtual IP Management & Automated Failover
 
 ---
 
@@ -145,34 +147,40 @@ Developed real-time, bidirectional kiosk interfaces for machine operators and wa
 
 ### 05. High-Availability ERPNext Infrastructure & Disaster Recovery
 
-**Industry:** Enterprise Infrastructure | Business Continuity
+**Industry:** Enterprise Infrastructure | Business Continuity | Database Engineering
 
 **The Challenge**
 
-Business-critical ERP systems require infrastructure that can withstand individual server failures and support reliable recovery. Single-server deployments introduce operational risks when hardware or services become unavailable.
+Business-critical ERP systems require infrastructure capable of maintaining service availability during individual server failures. Single-server deployments introduce operational risks when hardware, application services, or database services become unavailable.
 
 **Architecture**
 
-Designed and managed multi-host ERPNext infrastructure incorporating Keepalived for automated failover and TrueNAS for centralized backup and recovery.
+Designed and managed a multi-host ERPNext infrastructure incorporating two independent Keepalived instances, each responsible for managing a dedicated Virtual IP (VIP).
+
+The architecture separates frontend application availability from backend database connectivity, allowing each infrastructure layer to maintain its own failover mechanism.
 
 **Key Features**
 
 - Multi-host ERPNext deployment architecture.
-- Keepalived-based frontend failover.
-- Database failover architecture.
-- Virtual IP management.
-- Consolidated TrueNAS storage.
+- Independent frontend and backend Keepalived instances.
+- Dedicated Frontend Application VIP for ERPNext application access.
+- Dedicated Backend Database VIP for database connectivity.
+- Automated VIP failover between designated application nodes.
+- Independent database VIP failover between designated database nodes.
+- Separation of application and database network availability management.
+- Centralized TrueNAS storage infrastructure.
 - Hourly backup snapshots.
 - Disaster recovery and restoration planning.
 
 **Business Impact**
 
-- Reduced dependency on individual frontend servers.
-- Improved infrastructure resilience through automated failover.
-- Established centralized backup storage.
-- Introduced hourly snapshot-based recovery points.
-- Improved disaster recovery readiness.
-- Provided a scalable foundation for business-critical ERPNext deployments.
+- Reduced dependency on individual application servers.
+- Established independent failover mechanisms for frontend and backend infrastructure.
+- Improved application availability through frontend VIP failover.
+- Improved database connectivity resilience through backend VIP failover.
+- Centralized backup and recovery infrastructure.
+- Established hourly snapshot-based recovery points.
+- Improved business continuity and disaster recovery readiness.
 
 ---
 
@@ -205,37 +213,70 @@ flowchart TD
 
 ## High-Availability ERPNext Infrastructure
 
-The infrastructure architecture uses multiple ERPNext hosts, Keepalived-based failover, and centralized TrueNAS backup storage.
+The infrastructure incorporates two independent Keepalived instances, providing separate Virtual IP failover mechanisms for the frontend application layer and backend database layer.
+
+**Frontend Layer:** Keepalived Instance 1 manages the Application VIP, providing a stable access point for ERPNext application hosts.
+
+**Backend Layer:** Keepalived Instance 2 manages the Database VIP, providing a stable database connection endpoint across designated database nodes.
 
 ```mermaid
 flowchart TB
     U[Users / ERPNext Clients]
-    VIP[Virtual IP - Keepalived]
 
-    subgraph CLUSTER[ERPNext High Availability Environment]
-        direction LR
-        N1[ERPNext Host A - Active]
-        N2[ERPNext Host B - Standby]
-        DB1[Database Node A]
-        DB2[Database Node B]
+    subgraph FRONTEND["Frontend - Application High Availability"]
+        direction TB
+        K1["Keepalived Instance 1"]
+        VIP1["Application VIP"]
+
+        subgraph APP["ERPNext Application Nodes"]
+            N1["ERPNext Host A - Active"]
+            N2["ERPNext Host B - Standby"]
+        end
+
+        K1 --> VIP1
+        VIP1 --> N1
+        VIP1 -. Failover .-> N2
     end
 
-    subgraph BACKUP[Backup Infrastructure]
-        TN[TrueNAS Storage]
-        SNAP[Hourly Consolidated Snapshots]
-        DR[Disaster Recovery]
+    subgraph BACKEND["Backend - Database High Availability"]
+        direction TB
+        K2["Keepalived Instance 2"]
+        VIP2["Database VIP"]
+
+        subgraph DB["Database Nodes"]
+            DB1["Database Node A - Active"]
+            DB2["Database Node B - Standby"]
+        end
+
+        K2 --> VIP2
+        VIP2 --> DB1
+        VIP2 -. Failover .-> DB2
     end
 
-    U --> VIP
-    VIP --> N1
-    VIP -. Failover .-> N2
-    N1 --> DB1
-    N2 --> DB2
-    DB1 --> TN
-    DB2 --> TN
-    TN --> SNAP
-    SNAP --> DR
+    U --> VIP1
+    N1 --> VIP2
+    N2 --> VIP2
+
+    subgraph BACKUP["Backup & Disaster Recovery"]
+        TN["TrueNAS Centralized Storage"]
+        SNAP["Hourly Backup Snapshots"]
+        DR["Disaster Recovery"]
+
+        TN --> SNAP
+        SNAP --> DR
+    end
+
+    DB1 -. Backup .-> TN
+    DB2 -. Backup .-> TN
 ```
+
+**Infrastructure Design Principles**
+
+- Independent frontend and backend failover management.
+- Dedicated Virtual IPs for application and database connectivity.
+- Separation of application availability from database connectivity.
+- Centralized backup storage and recovery planning.
+- Reduced reliance on individual server availability.
 
 ---
 
@@ -249,6 +290,7 @@ flowchart TB
 | Mobile | Android |
 | Databases | MariaDB, MySQL |
 | Infrastructure | Linux, Keepalived, TrueNAS |
+| High Availability | Virtual IPs, Keepalived Failover |
 | Hardware Integration | Hikvision, Biometric Devices |
 | Business Systems | Payroll, Accounting, Inventory, Manufacturing |
 
@@ -270,6 +312,7 @@ Nextech Systems welcomes opportunities to collaborate with:
 - Jamaican statutory payroll and financial localization.
 - Mobile and hardware integrations.
 - High-availability infrastructure design.
+- Linux server administration and infrastructure support.
 
 ## Contact Nextech Systems
 
